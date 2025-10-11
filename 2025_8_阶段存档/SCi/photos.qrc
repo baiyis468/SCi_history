@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Photos/MainSchoolMap.jpg</file>
+        <file>Photos/icons/32.png</file>
+        <file>Photos/icons/512.png</file>
+        <file>Photos/icons/32.ico</file>
+        <file>Photos/icons/512.ico</file>
+    </qresource>
+    <qresource prefix="/icon_button">
+        <file>Photos/icons/map_button_icon.png</file>
+        <file>Photos/icons/notice_button_icon.png</file>
+        <file>Photos/icons/schedule_button_icon.png</file>
+        <file>Photos/icons/settings_button_icon.png</file>
+        <file>Photos/icons/find_button_icon.png</file>
+        <file>Photos/icons/today_button_icon.png</file>
+    </qresource>
+</RCC>
