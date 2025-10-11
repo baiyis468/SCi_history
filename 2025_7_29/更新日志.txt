@@ -1,0 +1,5 @@
+在今日weight里面主要增设了今日课程表的查看。
+单例模式localcachemanager出现了重复初始化的情况，通过检查是否打开数据库来避免了这样的错误发生。
+期间我还错误调用了executeDistinctQuery，而其实应该调用executeQuery。
+executeDistinctQuery 是仅仅辅助combobox查询下一个combobox的辅助工具。
+而executeQuery是用来真正查询内容的。
