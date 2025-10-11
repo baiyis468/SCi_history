@@ -1,0 +1,79 @@
+#include "clouddatabasemanager.h"
+
+const QString CloudDatabaseManager::DB_HOST = "mysql2.sqlpub.com";
+const QString CloudDatabaseManager::DB_NAME = "xiaoyuanapp";
+const QString CloudDatabaseManager::DB_USER = "xiaoyuanapp";
+//const QString CloudDatabaseManager::DB_PASSWORD = "";
+const int CloudDatabaseManager::DB_PORT = 3307;
+
+CloudDatabaseManager::CloudDatabaseManager(QObject *parent)
+    : QObject{parent}{}
+
+CloudDatabaseManager::~CloudDatabaseManager()
+{
+    closeAndRemoveConnection();
+}
+
+bool CloudDatabaseManager::openDatabase()
+{
+    // 先关闭并移除现有连接
+    closeAndRemoveConnection();
+
+    // 创建新的连接（使用唯一连接名）
+    db = QSqlDatabase::addDatabase("QMYSQL", "connect.");
+    db.setHostName(DB_HOST);
+    db.setDatabaseName(DB_NAME);
+    db.setUserName(DB_USER);
+    db.setPassword(DB_PASSWORD);
+    db.setPort(DB_PORT);
+
+    // 尝试打开连接
+    if (!db.open())
+    {
+        qDebug() << "数据库打开错误:" << db.lastError().text();
+        return false;
+    }
+    return true;
+}
+
+
+
+QSqlQuery CloudDatabaseManager::executeQuery(const QString &sql, const QVariantList &params)
+{
+    if (!db.isOpen() && !openDatabase())
+    {
+        qDebug() << "数据库没有在查询时打开:" << sql;
+        return QSqlQuery();
+    }
+    QSqlQuery query(db);
+    query.prepare(sql);
+    for (int i = 0; i < params.size(); ++i)
+    {
+        query.bindValue(i, params[i]);
+    }
+    if (!query.exec())
+    {
+        qDebug() << "查询错误: " << query.lastError().text() << "\nSQL:" << sql;
+    }
+    return query;
+}
+
+bool CloudDatabaseManager::executeUpdate(const QString &sql, const QVariantList &params)
+{
+    QSqlQuery query = executeQuery(sql, params);
+    return query.numRowsAffected() > 0;
+}
+
+void CloudDatabaseManager::closeAndRemoveConnection()
+{
+    if (db.isValid()) {
+        QString connectionName = db.connectionName();
+        db.close();
+        db = QSqlDatabase();
+
+        if (!connectionName.isEmpty())
+        {
+            QSqlDatabase::removeDatabase(connectionName);
+        }
+    }
+}
