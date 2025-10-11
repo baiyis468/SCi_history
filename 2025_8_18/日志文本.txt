@@ -1,0 +1,8 @@
+去除了databasemanager冗余的析构操作。
+更精确了classschedule176行的终端输出提醒。
+将classschedule里面的combobox5toG函数里面一些内容转移到了getCurrDayClassSchedule()内部，让他们完善了功能独立
+查询在线人数（活跃人数）的动作，放慢了100倍。减少不必要的查询浪费
+
+
+将getContrastTextColor函数从LocalCacheManager移动至ColorPicker中，完善了功能独立，
+将TodayWidget窗口获取到的课程添加背景颜色，以及使用getContrastTextColor消除背景颜色的改变对字体可见性的影响。
