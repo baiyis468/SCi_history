@@ -1,0 +1,32 @@
+#include <windows.h>
+
+// 应用程序图标
+IDI_ICON1 ICON "Photos/icons/512.ico"
+
+// 版本信息
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION     0,1,0,0
+PRODUCTVERSION  0,1,0,0
+FILEOS          VOS__WINDOWS32
+FILETYPE        VFT_APP
+{
+    BLOCK "StringFileInfo"
+    {
+        BLOCK "040904E4"
+        {
+            VALUE "CompanyName", "Your Company"
+            VALUE "FileDescription", "SCi Application"
+            VALUE "FileVersion", "0.1.0"
+            VALUE "InternalName", "SCi"
+            VALUE "LegalCopyright", "Copyright © 2023 Your Company"
+            VALUE "OriginalFilename", "SCi.exe"
+            VALUE "ProductName", "SCi"
+            VALUE "ProductVersion", "0.1.0"
+        }
+    }
+    
+    BLOCK "VarFileInfo"
+    {
+        VALUE "Translation", 0x0409, 1252
+    }
+}
